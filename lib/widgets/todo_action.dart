@@ -13,13 +13,9 @@ class TodoAction extends StatelessWidget {
     return ListView.builder(
       itemCount: task.allTasks.length,
       itemBuilder: ((context, index) => Slidable(
-        startActionPane: ActionPane(motion: BehindMotion(), children: [
+        endActionPane: ActionPane(motion: StretchMotion(), children: [
           SlidableAction(onPressed: (context){
             task.deleteTask(task.allTasks[index]);
-            Scaffold.of(context).showSnackBar(SnackBar(
-              content: Text('Show Snackbar'),
-              duration: Duration(seconds: 3),
-            ));
           },
             backgroundColor: Colors.red,
             icon: Icons.delete,
