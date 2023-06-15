@@ -5,8 +5,8 @@ import '../providers/todo_proider.dart';
 
 
 class TodoAction extends StatelessWidget {
-  const TodoAction({Key? key}) : super(key: key);
-
+   TodoAction({Key? key}) : super(key: key);
+  bool _isSelected = true;
   @override
   Widget build(BuildContext context) {
     final task = Provider.of<TodoProvider>(context);
@@ -16,30 +16,30 @@ class TodoAction extends StatelessWidget {
         startActionPane: ActionPane(motion: BehindMotion(), children: [
           SlidableAction(onPressed: (context){
             task.deleteTask(task.allTasks[index]);
+            Scaffold.of(context).showSnackBar(SnackBar(
+              content: Text('Show Snackbar'),
+              duration: Duration(seconds: 3),
+            ));
           },
             backgroundColor: Colors.red,
             icon: Icons.delete,
             label: "Delete",
           ),
-          SlidableAction(onPressed: (context){
-          },
-            backgroundColor: Colors.green,
-            icon: Icons.check,
-            label: "Done",
-          ),
-
         ]),
         child: ListTile(
           leading: Checkbox(
             value: task.allTasks[index].completed,
             onChanged: ((_) => task.toggleTask(task.allTasks[index])),
           ),
-          title: Text(task.allTasks[index].todoTitle),
-          trailing: IconButton(
-              onPressed: () {
-                task.deleteTask(task.allTasks[index]);
-              },
-              icon: const Icon(Icons.delete)),
+          title: Text(task.allTasks[index].todoTitle,style: TextStyle(
+              decoration: !_isSelected ? TextDecoration.lineThrough : null,
+            fontWeight: FontWeight.bold,
+          ),),
+          // trailing: IconButton(
+          //     onPressed: () {
+          //       task.deleteTask(task.allTasks[index]);
+          //     },
+          //     icon: const Icon(Icons.delete)),
         ),
       )),
     );

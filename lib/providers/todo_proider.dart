@@ -23,4 +23,7 @@ class TodoProvider with ChangeNotifier {
     _tasks.remove(task);
     notifyListeners();
   }
+  void testcheck(bool _isSelected){
+     _isSelected = !_isSelected;
+  }
 }
